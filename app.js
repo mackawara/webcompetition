@@ -2,7 +2,7 @@ const express = require("express");
 //const { dirname } = require("path/posix")
 const app = express();
 const PORT = process.env.PORT || 3000;
-const multer = require("multer");
+const multer=require("multer")
 const upload = multer();
 
 // mongoose configuration
@@ -18,7 +18,8 @@ const options = {
   useUnifiedTopology: true,
   dbname: databaseName,
 };
-const uri = process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOLHQ_URI 
+const uri = process.env.MONGODB_URI/* process.env.MONGODB_URI || process.env.MONGOLAB_URI || process.env.MONGOLHQ_URI  */
+
 
 let connection = mongoose.connect(uri || process.env.DB_URI, options );
 
