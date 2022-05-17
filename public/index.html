@@ -11,40 +11,33 @@
 <body>
     <form id="myForm">
       <div class="input-group">
-       <input type="text" placeHolder="Name and Surname" required class="form-control" id="names" name="names"/>    
+       <input type="text" placeHolder="Name and Surname" required class="form-control" id="fullNames" name="fullNames" min="8"/>    
      <small></small>
     </div>
    
       <div class="input-group">
-        <input type="tel" list="phoneNumber" placeholder="Phone Number" class="form-control" id="cellNumber" name="cellNumber" minlength="10" maxlength="15" />
+        <input type="tel" list="phoneNumber" placeholder="Phone Number" class="form-control" id="phoneNumber" name="phoneNumber" minlength="15" maxlength="15" />
         <small></small>
         
       </div>
  
         <div class="input-group"> 
         
-          <input type="email" placeholder="enter email account" id="emailAddress" name="emailAddress" class="form-control">
+          <input type="email" placeholder="Email" id="email" name="email" class="form-control">
           <small></small>
           
         </div>
 
         <div class="input-group">
          
-         <input type="address" list="addresses" placeholder="enter phsical address"  class="form-control" id="address" name="address" class="address"><br><br>
+         <input type="location" list="locations" placeholder="Your Location"  class="form-control" id="bizLocation" name="bizLocation" class="address"><br><br>
          <small></small>
         </div>
 
-        <div class="input-group">
-            
-            <input type="address" list="addresses" placeholder="enter phsical address"  class="form-control" id="address" name="address" class="address">
-            <small></small>
-        </div>
-
-        <div class="input-group">
-            <input type="address" list="addresses" placeholder="enter phsical address"  class="form-control" id="address" name="address" class="address">
-            <small></small>
-        </div>
-
+        <textarea name="bizDescription" id="bizDescription" cols="30" rows="10" max="300">Description</textarea>
+        
+       
+         <textarea name="fbLink" id="fbLink" cols="1" rows="1">Facebook page link</textarea>
         
 
 </form>
