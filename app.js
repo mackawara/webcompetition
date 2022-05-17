@@ -10,6 +10,7 @@ const upload = multer();
 const mongoose = require("mongoose");
 
 const { MongoClient } = require("mongodb");
+const req = require("express/lib/request");
 require("dotenv").config();
 
 const databaseName = "players";
@@ -40,6 +41,9 @@ app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(upload.array());
 //ROUTES
+app.post("./register", (req,res)=>{
+    
+})
 //HOME PAGE
 
  
