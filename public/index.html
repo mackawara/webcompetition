@@ -1,49 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <p id="confirmation"></p>
     <div id="results"></div>
     <form id="myForm">
       <div class="input-group">
-       <input type="text" placeHolder="Name and Surname" required class="form-control" id="fullNames" name="fullNames" min="8"/>    
-     <small></small>
-    </div>
-   
-      <div class="input-group">
-        <input type="tel"  placeholder="Phone Number" class="form-control" id="phoneNumber" name="phoneNumber" minlength="15" maxlength="15" />
+        <input
+          type="text"
+          placeholder="Name and Surname"
+          required
+          class="form-control"
+          id="fullName"
+          name="fullName"
+          min="4"
+        />
         <small></small>
-        
       </div>
- 
-        <div class="input-group"> 
-        
-          <input type="email" placeholder="Email" id="email" name="email" class="form-control">
-          <small></small>
-          
-        </div>
 
-        <div class="input-group">
-         
-         <input type="location" list="locations" placeholder="Business Location"  class="form-control" id="bizLocation" name="bizLocation" class="address"><br><br>
-         <small></small>
-        </div>
+      <div class="input-group">
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          class="form-control"
+          id="phoneNumber"
+          name="phoneNumber"
+          minlength="10"
+          maxlength="15"
+        />
+        <small></small>
+      </div>
 
-        <textarea name="bizDescription" id="bizDescription" placeholder="Enter Description " cols="30" rows="10" max="300">Description</textarea>
-        
-       
-         <textarea name="fbLink" id="fbLink" cols="1" rows="1">Facebook page link</textarea>
-        
+      <div class="input-group">
+        <input
+          type="email"
+          placeholder="Email"
+          id="email"
+          name="email"
+          class="form-control"
+        />
+        <small></small>
+      </div>
 
-</form>
-<script src="script.js"></script>
-</body>
+      <div class="input-group">
+        <input
+          type="location"
+          list="locations"
+          placeholder="Business Location"
+          class="form-control"
+          id="bizLocation"
+          name="bizLocation"
+          class="address"
+        /><br /><br />
+        <small></small>
+      </div>
+      <div class="input-group">
+        <textarea
+          name="bizDescription"
+          id="bizDescription"
+          placeholder="Enter Description "
+          cols="30"
+          rows="10"
+          max="300"
+        >
+Description</textarea
+        >
+        <small></small>
+      </div>
+      <div class="input-group">
+        <input
+          name="fblink"
+          id="fblink"
+          placeholder="link to your facebook page"
+        />
+
+        <small></small>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+    <script src="index.js"></script>
+  </body>
 </html>
