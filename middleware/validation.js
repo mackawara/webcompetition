@@ -5,8 +5,9 @@ const userValidationRules = () => {
     body("fullName", "Please a enter a valid name")
       .not()
       .isEmpty()
+      .withMessage("Your fullName is required")
       .isLength({ min: 2 })
-      .isLength({max: 30})
+      .isLength({max: 45})
       .trim()
       .escape(),
 
@@ -31,30 +32,36 @@ const userValidationRules = () => {
       .trim()
       .escape(),
     body("bizLocation", "Ensure you select your location/surburb")
-      .not("Select One")
+    .not()
+    .isEmpty()
+    .withMessage(`Your location of business is required`)
       .trim()
       .escape(),
 
-    body("bizdescription")
+    body("bizDescription")
       .not()
       .isEmpty()
       .withMessage(`Address is required`)
-      .isLength({ min: 30 })
-      .withMessage(`Check if your address is complete`)
+      .isLength({ min: 400 })
+      .withMessage(`Please provide a detailed description , minimum 400 characters long`)
+      .isLength({max:2000})
+      .withMessage(`Please keep description to within 2000 characters(letters)`)
       .trim()
       .escape(),
 
-      body("fblink")
+      body("fbLink")
       .not()
       .isEmpty()
       .withMessage(`facebook link is required`)
       .isLength({ min: 6 })
+      .isURL()
       .withMessage(`Check if your fb link is correct`)
       .trim()
       .escape(),
   ];
 };
 const validateEntrant = (req, res, next) => {
+    
   const result = validationResult(req);
 
   const myValidationResult = validationResult.withDefaults({
@@ -69,7 +76,7 @@ const validateEntrant = (req, res, next) => {
 
   //const result = validationResult(req).formatWith(errorFormatter);
   if (!result.isEmpty()) {
-    res.status("422").send(errors.mapped());
+    res.status(422).send(errors.mapped());
 
     console.log(errors.mapped());
     //next() // to be removed
@@ -81,6 +88,6 @@ const validateEntrant = (req, res, next) => {
     return next();
   }
 
-};
+ };
 
 module.exports = { userValidationRules, validateEntrant };
