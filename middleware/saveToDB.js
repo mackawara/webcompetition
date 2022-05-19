@@ -20,6 +20,7 @@ const entrantSchema = new mongoose.Schema(
       // maxlength: [30, "Please keep Subject to within 30 characters"],
     },
     bizDescription: {
+        
       type: String,
       required: true,
       minlength: [
@@ -34,15 +35,16 @@ const entrantSchema = new mongoose.Schema(
     },
 
     fbLink: {
+        unique:[true,`link already exists`],
       type: String,
       required: true,
       minlength: [2, `please enter a valid name`],
-      validate: [
+      validate: 
         function (v) {
           check(v).isURL;
         },
-        `please submit a valid link`,
-      ],
+        message: `please submit a valid link`,
+      
 
       //match: [/^[a-z ,.'-]+$/ , " Name contains Invalid characters"],
     },
@@ -66,24 +68,65 @@ const entrantSchema = new mongoose.Schema(
 
 const entrantModel = mongoose.model("entrant", entrantSchema);
 
-// const entrantModel = require("./models/entrant");
 
 let saveEntrantToDataBase = async (req, res, next) => {
   console.log("save to database is working");
+  const fullName= req.body.fullName
+  const bizLocation= req.body.bizLocation
+  const bizDescription= req.body.bizDescription
+  const fbLink= req.body.fbLink
+  const phoneNumber= req.body.phoneNumber
+  const email= req.body.email
+
   /* takes the valid */
   const entrant = new entrantModel({
-    fullName: req.body.fullName,
-    bizLocation: req.body.bizLocation,
-    bizDescription: req.body.bizDescription,
-    fbLink: req.body.fbLink,
-    phoneNumber: req.body.phoneNumber,
-    email: req.body.email,
-  });
 
-  try {
-     entrant.save();
-     next();
-     console.log(`${entrant} saved to DB`);
-  } catch {}
-}; //module.exports(entrant)=entrant
+    fullName: fullName,
+    bizLocation: bizLocation,
+    bizDescription: bizDescription,
+    fbLink: fbLink,
+    phoneNumber: phoneNumber,
+    email: email,
+  });
+/* query Entrant queries the database to see if this is not a duplicate of existing entry */
+  const queryEntrant = async function () {
+      /* prevents duplicate from being recorded on db */
+    console.log(`query Entrant is working`);
+    const result = await entrantModel
+      .find({
+        fullName: fullName, // check if name already exists
+        fbLink: fbLink, // check if facebook link is already ther
+        email: email, // check if email is already registered
+      })
+      .exec();
+    console.log(result);
+
+    if (result.length < 1) {
+        /* if there is no existing entry the entry can be saved */
+      saveEntrant();
+    } else {
+      res
+        .status(409)
+        .send({ response: `${fullName} is already registered. Please use another email` });
+    }
+  };
+  
+  function saveEntrant() {
+    console.log(`save player working `);
+    entrant.save((err, entrant) => {
+      if (err) {
+        const errors = err.errors;
+        res.status(`422`).send(errors);
+        return;
+      } else next();
+    });
+  }
+
+  queryEntrant();
+};
+
+
+
+
+; //module.exports(entrant)=entrant
 module.exports = saveEntrantToDataBase;
