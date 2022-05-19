@@ -13,7 +13,7 @@ const { MongoClient } = require("mongodb");
 const req = require("express/lib/request");
 require("dotenv").config();
 
-const databaseName = "players";
+const databaseName = "Entrants";
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -28,7 +28,7 @@ let connection = mongoose.connect(uri || process.env.DB_URI, options);
 const database = mongoose.connection;
 database.on("error", console.error.bind(console, "connection error:"));
 database.once("open", function () {
-  console.log(`DAtabase connection established on this uri :${uri}`);
+  console.log(`DAtabase connection established `);
 });
 app.listen(PORT, () => {
   console.log(`Server started, listening on  port: ${PORT} `);
