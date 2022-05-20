@@ -42,7 +42,7 @@ textarea {
   width: 50%;
   height: 100vh;
   display: flex;
-  background-image: url("images/webdesigner.jpg");
+  background-image: url("images/background.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
