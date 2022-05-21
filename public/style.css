@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:400");
+
 :root {
   --cultured: #f8f9faff;
   --cultured-2: #e9ecefff;
@@ -15,7 +17,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-size: 12px;
-  background-color: var(--cadet-blue-);
+  background-color: var(--eerie-black);
 }
 
 .input-group input,
@@ -30,6 +32,27 @@ textarea {
   height: 2.5rem;
   color: var(--);
 }
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--sonic-silver);
+  padding: 0 0 0 1rem;
+  font-family: "Poppins", sans-serif;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--sonic-silver);
+  padding: 0 0 0 1rem;
+  font-family: "Poppins", sans-serif;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--sonic-silver);
+  padding: 0 0 0 1rem;
+  font-family: "Poppins", sans-serif;
+}
 .wrapper {
   display: flex;
   justify-content: center;
@@ -37,16 +60,16 @@ textarea {
   height: 100vh;
   flex-wrap: wrap-reverse;
   background-color: #212529ff;
+  background-image: url("images/wed-development.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .image-wrapper {
   width: 50%;
   height: 100vh;
-  display: flex; /* 
-  background-image: url("images/webdesigner.jpg");
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; */
+  display: flex;
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
