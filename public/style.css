@@ -47,19 +47,24 @@ textarea {
   background-size: cover;
   background-position: center;
   background-attachment: fixed; */
-  justify-content: center;
-  /* align-items: center; */
+  justify-content: space-around;
+  align-items: center;
   flex-wrap: wrap;
 }
 
 .image-wrapper * {
   color: var(--light-gray);
 }
+.text-wrappper {
+  text-align: left;
+  width: 45%;
+}
 
-/* .image-wrapper img {
-  width: 100%;
-  height: 100%;
-} */
+.image-wrapper img {
+  width: 45%;
+  height: auto;
+  border-radius: 1rem;
+}
 
 .form-wrapper {
   display: flex;
@@ -99,6 +104,11 @@ textarea {
 .btn-group button:hover {
   transform: scale(1.02);
 }
+@media only screen and (min-width: 1201px) {
+  html {
+    font: size 16px;
+  }
+}
 @media only screen and (max-width: 900px) {
   html {
     font-size: 10px;
@@ -115,6 +125,7 @@ textarea {
     border-bottom: var(--davys-grey);
   }
 }
+
 @media only screen and (max-width: 600px) {
   html {
     font-size: 8px;
