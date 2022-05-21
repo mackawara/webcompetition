@@ -87,6 +87,11 @@ textarea {
 .image-wrapper img {
   width: 45%;
   height: auto;
+  transition: all 0.2s;
+}
+
+.image-wrapper img:hover {
+  transform: scale(1.01);
 }
 
 .form-wrapper {
@@ -98,7 +103,7 @@ textarea {
 }
 .form-wrapper > div {
   border: 1px solid var(--cultured);
-  box-shadow: 2px 2px var(--cultured-2);
+  box-shadow: 2px 2px var(--light-gray);
   width: 80%;
   display: flex;
   justify-content: center;
@@ -127,6 +132,47 @@ textarea {
 .btn-group button:hover {
   transform: scale(1.02);
 }
+
+/* form validation classes */
+.error div {
+  color: #df4759;
+  /* border: 2px solid #df4759; */
+  border-radius: 0.4em;
+  margin: 1em;
+}
+.error p {
+  color: #df4759;
+  padding: 0.5em;
+  margin: 0.5em 0;
+  font-style: italic;
+}
+.error input {
+  border: 2px solid #df4759;
+}
+.error select {
+  border: 2px solid #df4759;
+}
+.error small {
+  color: #df4759;
+}
+
+.success div {
+  color: #5cb85c;
+  /*  border: 2px solid #5cb85c; */
+  border-radius: 0.4em;
+  margin: 1em;
+}
+.success p {
+  padding: 0.5em;
+  margin: 0.5em 0;
+}
+.success input {
+  border: 2px solid #5cb85c;
+}
+.success small {
+  color: #5cb85c;
+}
+/* media queries */
 @media only screen and (min-width: 1201px) {
   html {
     font: size 16px;
@@ -134,7 +180,7 @@ textarea {
 }
 @media only screen and (max-width: 900px) {
   html {
-    font-size: 10px;
+    font-size: 12px;
   }
   .wrapper {
     flex-wrap: wrap;
@@ -147,12 +193,15 @@ textarea {
     height: 100vh;
     margin-bottom: 10rem;
     border-bottom: var(--davys-grey);
+    justify-content: center;
   }
   .image-wrapper img {
     display: none;
   }
   .text-wrappper {
-    width: 60%;
+    width: 80%;
+    margin-left: 2rem;
+    text-align: center;
   }
 }
 
