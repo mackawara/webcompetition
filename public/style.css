@@ -61,6 +61,7 @@ textarea {
   flex-wrap: wrap-reverse;
   background-color: #212529ff;
   background-image: url("images/wed-development.jpeg");
+  background-blend-mode: multiply;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -139,13 +140,20 @@ textarea {
   .wrapper {
     flex-wrap: wrap;
     flex-direction: row;
+    height: auto;
   }
   .form-wrapper,
   .image-wrapper {
     width: 100%;
     height: 100vh;
-    margin-bottom: 4rem;
+    margin-bottom: 10rem;
     border-bottom: var(--davys-grey);
+  }
+  .image-wrapper img {
+    display: none;
+  }
+  .text-wrappper {
+    width: 60%;
   }
 }
 
