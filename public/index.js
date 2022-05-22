@@ -6,7 +6,17 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     formValidation();
   });
-  function reset() {}
+  let entrantData = {};
+  const inputGroups = document.querySelectorAll(".input-group");
+  function reset() {
+    console.log("reset working");
+    //const inputGroups = document.querySelectorAll(".input-group");
+    for (let i = 0; i < inputGroups.length; i++) {
+      const element = inputGroups[i];
+      element.classList = "input-group";
+      console.log(element.classList);
+    }
+  }
   /* register(); */
   async function formValidation() {
     /* input fields */
@@ -23,6 +33,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       this.inputsField = inputsField;
       const small = inputsField.parentElement.querySelector("small");
       const value = this.inputsField.value;
+      const name = this.inputsField.name;
       /* set error is the function which catches all errors and inputs the errors CSS */
       this.setError = function () {
         inputsField.parentElement.className = "input-group error";
@@ -68,6 +79,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       small.innerText = "";
       /* add styling to show successful validation */
       inputsField.parentElement.className = "input-group success";
+      /* append field data into entrant data Object */
+      entrantData[name] = value;
     }
 
     /* Name Validation */
@@ -158,16 +171,15 @@ window.addEventListener("DOMContentLoaded", async () => {
 
   /*  Sends the form Data to the back end  */
   async function sendRegistrationForm() {
-    let formData = new FormData(form);
-    console.log(formData);
+    console.log(entrantData);
     const options = {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/JSON",
       },
       mode: "cors",
       redirect: "follow",
-      body: formData,
+      body: JSON.stringify(entrantData),
     };
     const response = await fetch("/registration", options);
     const data = await response.json();
