@@ -22,15 +22,17 @@ body {
 
 .input-group input,
 textarea {
-  margin: 0rem 0rem 2rem 0rem;
+  margin: 2rem 0rem 0rem 0rem;
   width: 96%;
   border-radius: 3px;
   border: 1px solid var(--gainsboro);
   background-color: var(--cultured);
 }
+.input-group textarea {
+  border: 1px solid red;
+}
 .input-group input {
   height: 2.5rem;
-  color: var(--);
 }
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
@@ -117,6 +119,7 @@ textarea {
   margin: 10% 0;
 }
 .btn-group {
+  margin-top: 2rem;
   display: flex;
   justify-content: space-between;
 }
@@ -136,17 +139,10 @@ textarea {
 /* form validation classes */
 .error div {
   color: #df4759;
-  /* border: 2px solid #df4759; */
   border-radius: 0.4em;
-  margin: 1em;
 }
-.error p {
-  color: #df4759;
-  padding: 0.5em;
-  margin: 0.5em 0;
-  font-style: italic;
-}
-.error input {
+.error input,
+textarea {
   border: 2px solid #df4759;
 }
 .error select {
@@ -156,17 +152,17 @@ textarea {
   color: #df4759;
 }
 
+.error textarea {
+  color: #df4759;
+  border: 2px solid #df4759;
+}
+
 .success div {
   color: #5cb85c;
   /*  border: 2px solid #5cb85c; */
-  border-radius: 0.4em;
-  margin: 1em;
 }
-.success p {
-  padding: 0.5em;
-  margin: 0.5em 0;
-}
-.success input {
+.success input,
+textarea {
   border: 2px solid #5cb85c;
 }
 .success small {
