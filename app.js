@@ -1,7 +1,7 @@
 const express = require("express");
 //const { dirname } = require("path/posix")
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000 || 3500;
 const multer = require("multer");
 const upload = multer();
 
@@ -45,11 +45,14 @@ const {
   userValidationRules,
   validateEntrant,
 } = require("./middleware/validation.js");
-const saveEntrantToDataBase=require("./middleware/saveToDB.js")
+const saveEntrantToDataBase = require("./middleware/saveToDB.js");
 //ROUTES
 app.post(
   "/register",
-   userValidationRules(),validateEntrant,saveEntrantToDataBase, (req, res) => {
+  userValidationRules(),
+  validateEntrant,
+  saveEntrantToDataBase,
+  (req, res) => {
     console.log(req.body);
     res.send(req.body);
   }

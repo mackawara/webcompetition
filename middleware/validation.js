@@ -7,7 +7,7 @@ const userValidationRules = () => {
       .isEmpty()
       .withMessage("Your fullName is required")
       .isLength({ min: 2 })
-      .isLength({max: 45})
+      .isLength({ max: 45 })
       .trim()
       .escape(),
 
@@ -24,15 +24,15 @@ const userValidationRules = () => {
       .not()
       .isEmpty()
       .withMessage(`Mobile number is required`)
-      .isLength({ min: 10, max: 14})
+      .isLength({ min: 10, max: 14 })
       .isMobilePhone()
       .withMessage(`Ensure you entered a valid Mobile number`)
       .trim()
       .escape(),
     body("bizLocation", "Ensure you select your location/surburb")
-    .not()
-    .isEmpty()
-    .withMessage(`Your location of business is required`)
+      .not()
+      .isEmpty()
+      .withMessage(`Your location of business is required`)
       .trim()
       .escape(),
 
@@ -41,13 +41,15 @@ const userValidationRules = () => {
       .isEmpty()
       .withMessage(`Address is required`)
       .isLength({ min: 400 })
-      .withMessage(`Please provide a detailed description , minimum 400 characters long`)
-      .isLength({max:2000})
+      .withMessage(
+        `Please provide a detailed description , minimum 400 characters long`
+      )
+      .isLength({ max: 2000 })
       .withMessage(`Please keep description to within 2000 characters(letters)`)
       .trim()
       .escape(),
 
-      body("fbLink")
+    body("fbLink")
       .not()
       .isEmpty()
       .withMessage(`facebook link is required`)
@@ -59,7 +61,8 @@ const userValidationRules = () => {
   ];
 };
 const validateEntrant = (req, res, next) => {
-    
+  console.log("entry received");
+
   const result = validationResult(req);
 
   const myValidationResult = validationResult.withDefaults({
@@ -85,7 +88,6 @@ const validateEntrant = (req, res, next) => {
 
     return next();
   }
-
- };
+};
 
 module.exports = { userValidationRules, validateEntrant };
