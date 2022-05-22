@@ -147,8 +147,8 @@ window.addEventListener("DOMContentLoaded", async () => {
       bizDescriptionField.setError();
       bizDescriptionField.empty();
     } else if (
-      bizDescriptionField.tooShort(200) ||
-      bizDescriptionField.tooLong(800)
+      bizDescriptionField.tooShort(400) ||
+      bizDescriptionField.tooLong(2000)
     ) {
       bizDescriptionField.invalid(), bizDescriptionField.setError();
     } else {
@@ -192,14 +192,10 @@ window.addEventListener("DOMContentLoaded", async () => {
         "confirmation"
       ).innerText = ` Thank you ${data.fullName} for participating, you will hear from our team soon!`;
       console.log("SUCCESS");
-      /* for (const any in data) {
-                const p = document.createElement("p");
-                const personalDetails = `${any}: ${data[any]}`;
-                p.innerText = personalDetails;
-                result.appendChild(p);
-                result.classList.remove("error");
-              } */
+      const celebration = document.querySelector("#celebration");
+      celebration.src = "./images/celebrationSuccess.jpeg";
     } else if (response.status == "409") {
+    /* Status 409 . WHen there is an existing entry in the DB with same email */
       console.log(
         "Error duplicate entry. Please check if you havent already made a submission"
       );
@@ -207,22 +203,12 @@ window.addEventListener("DOMContentLoaded", async () => {
       confirmation.innerText = data.response;
       confirmation.parentElement.classList.add("error");
     } else if (response.status == "422") {
-      console.log("Error");
-      document.getElementById(
-        "registrationConfirmation"
-      ).innerText = ` Your submission contains errors!!`;
+    /* status 422 sent if data submitted fails the DB schema validation */
       for (const any in data) {
-        result.classList.add("error");
-        const p = document.createElement("p");
-        const personalDetails = ` ${data[any].properties.message}`;
-        p.innerText = personalDetails;
-        document
-          .getElementById(`${any}`)
-          .parentElement.classList.remove("success");
-        document.getElementById(`${any}`).parentElement.classList.add("error");
-
         console.log(`${any}`);
-        result.appendChild(p);
+        const errorField = document.getElementById(`${any}`).parentElement;
+        errorField.classList = "input-group error";
+        errorField.querySelector("small").innerText = `${data[any].message}`;
       }
     }
   }
