@@ -5,7 +5,7 @@ const userValidationRules = () => {
     body("fullName", "Please a enter a valid name")
       .not()
       .isEmpty()
-      .withMessage("Your fullName is required")
+      .withMessage("Your full Name is required")
       .isLength({ min: 2 })
       .isLength({ max: 45 })
       .trim()
@@ -32,14 +32,14 @@ const userValidationRules = () => {
     body("bizLocation", "Ensure you select your location/surburb")
       .not()
       .isEmpty()
-      .withMessage(`Your location of business is required`)
+      .withMessage(`The location of your business is required`)
       .trim()
       .escape(),
 
-    body("bizDescription")
+    body("bizDescription", "Please enter a working facebook link")
       .not()
       .isEmpty()
-      .withMessage(`Address is required`)
+      .withMessage(`facebook page link is required`)
       .isLength({ min: 400 })
       .withMessage(
         `Please provide a detailed description , minimum 400 characters long`
@@ -55,13 +55,13 @@ const userValidationRules = () => {
       .withMessage(`facebook link is required`)
       .isLength({ min: 6 })
       .isURL()
-      .withMessage(`Check if your fb link is correct`)
+      .withMessage(`Check if your facebook link is correct`)
       .trim()
       .escape(),
   ];
 };
 const validateEntrant = (req, res, next) => {
-  console.log("entry received");
+  console.log(req.body  );
 
   const result = validationResult(req);
 
@@ -73,16 +73,12 @@ const validateEntrant = (req, res, next) => {
     },
   });
   const errors = myValidationResult(req);
-  //const result = myValidationResult(req);
 
   //const result = validationResult(req).formatWith(errorFormatter);
   if (!result.isEmpty()) {
     res.status(422).send(errors.mapped());
 
     console.log(errors.mapped());
-    //next() // to be removed
-
-    //return res.json({ errors: sresult.array() });
   } else {
     console.log("Validation passed");
 
