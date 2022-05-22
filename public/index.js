@@ -181,7 +181,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       redirect: "follow",
       body: JSON.stringify(entrantData),
     };
-    const response = await fetch("/registration", options);
+    const response = await fetch("/register", options);
     const data = await response.json();
     const result = document.getElementById("results");
     result.style.display = "block";
