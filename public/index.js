@@ -6,9 +6,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     formValidation();
   });
-  function reset(){
-    
-  }
+  function reset() {}
   /* register(); */
   async function formValidation() {
     /* input fields */
@@ -66,9 +64,10 @@ window.addEventListener("DOMContentLoaded", async () => {
           inputErrors.splice(index, 1); // 2nd parameter means remove one item only
         }
       };
+      /* remove any error messages */
+      small.innerText = "";
       /* add styling to show successful validation */
       inputsField.parentElement.className = "input-group success";
-      
     }
 
     /* Name Validation */
@@ -105,6 +104,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
     /* phoneNumber Validation */
     const phoneNumberField = new inputValidation(phoneNumber);
+    const regexValue = /(\+263|0)7[7-8|1|3][0-9]{7}$/;
     if (phoneNumberField.isEmpty()) {
       phoneNumberField.empty(), phoneNumberField.setError();
     } else if (
@@ -112,7 +112,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       phoneNumberField.tooShort(10) ||
       phoneNumberField.tooLong(14) ||
       /* check if valid Zimbabwean number */
-      phoneNumberField.regexTest(/(\+263|0)7[7-8|1|3][0-9]{7}$/)
+      regexValue.test(phoneNumber.value)
     ) {
       phoneNumberField.setError(), phoneNumberField.invalid();
     } else {
