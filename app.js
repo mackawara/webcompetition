@@ -6,7 +6,7 @@ const multer = require("multer");
 const upload = multer();
 
 // mongoose configuration
-
+/*  add try async await and try catch block to handle mongoDB ocnnection */
 const mongoose = require("mongoose");
 
 const { MongoClient } = require("mongodb");
