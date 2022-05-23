@@ -87,44 +87,36 @@ let saveEntrantToDataBase = async (req, res, next) => {
   const queryEntrant = async function (response) {
     /* prevents duplicate from being recorded on db */
     console.log(`query Entrant is working`);
-    
-      const result = await entrantModel.exists({ fullname: fullName });
 
-      if (result) {
-        console.log(result);
-        response.status(422).send("result")
-
-
-       // throw `${fullName} is already registered. Please use another email`;
-
-        /* if there is no existing entry the entry can be saved */
-      } else {
-        saveEntrant();
-      }
-     
-    } /* catch (err) {
-      console.log(err);
-      res.status(409).send({
-        response: err,
+    const result = await entrantModel
+      .exists({ fullname: fullName })
+      .maxTimeMS(15000)
+      .catch((err) => {
+        console.log(err);
+        res
+          .status(500)
+          .send({ message: `server error ocured, please resubmit` });
+        return;
       });
-    } */
-
-    function saveEntrant() {
-      console.log(`save entrant working `);
-      entrant.save((err, entrant) => {
-        if (err) {
-          const errors = err.errors;
-          res.status(422).send(errors);
-          return;
-        } else next();
-      });
+    if (result) {
+      console.log(result._id);
+      res.status(400).send({ message: `user  is already entered thank you` });
+    } else if (result) {
+      /* if there is no existing entry the entry can be saved */
+      saveEntrant();
     }
+  };
 
-    try {
-      queryEntrant(res);
-    } catch (err) {
-      res.status(500).send(err);
-    }
-  }; //module.exports(entrant)=entrant
-;
+  function saveEntrant() {
+    console.log(`save entrant working `);
+    entrant.save((err, entrant) => {
+      if (err) {
+        const errors = err.errors;
+        res.status(422).send(errors);
+        return;
+      } else next();
+    });
+  }
+  queryEntrant();
+}; //module.exports(entrant)=entrant
 module.exports = saveEntrantToDataBase;
