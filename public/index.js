@@ -186,20 +186,19 @@ window.addEventListener("DOMContentLoaded", async () => {
     const result = document.getElementById("results");
     result.style.display = "block";
 
+    const celebration = document.querySelector("#celebration");
+    const confirmation = document.getElementById("confirmation");
     if (response.status == "200") {
+     /*  if was successsful */
       form.remove();
       document.getElementById(
         "confirmation"
       ).innerText = ` Thank you ${data.fullName} for participating, you will hear from our team soon!`;
       console.log("SUCCESS");
-      const celebration = document.querySelector("#celebration");
       celebration.src = "./images/celebrationSuccess.jpeg";
-    } else if (response.status == "409") {
+    } else if (response.status == "400" || "500") {
     /* Status 409 . WHen there is an existing entry in the DB with same email */
-      console.log(
-        "Error duplicate entry. Please check if you havent already made a submission"
-      );
-      const confirmation = document.getElementById("registrationConfirmation");
+     /* Status . When the server cant provide a response */
       confirmation.innerText = data.response;
       confirmation.parentElement.classList.add("error");
     } else if (response.status == "422") {
@@ -211,5 +210,6 @@ window.addEventListener("DOMContentLoaded", async () => {
         errorField.querySelector("small").innerText = `${data[any].message}`;
       }
     }
+   
   }
 });
