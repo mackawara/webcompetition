@@ -28,7 +28,7 @@ let connection = mongoose.connect(uri || process.env.DB_URI, options);
 const database = mongoose.connection;
 database.on("error", console.error.bind(console, "connection error:"));
 database.once("open", function () {
-  console.log(`DAtabase connection established `);
+  console.log(`DAtabase connection established  and checking`);
 });
 app.listen(PORT, () => {
   console.log(`Server started, listening on  port: ${PORT} `);
