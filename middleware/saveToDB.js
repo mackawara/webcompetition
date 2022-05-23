@@ -20,7 +20,6 @@ const entrantSchema = new mongoose.Schema(
       // maxlength: [30, "Please keep Subject to within 30 characters"],
     },
     bizDescription: {
-        
       type: String,
       required: true,
       minlength: [
@@ -35,16 +34,14 @@ const entrantSchema = new mongoose.Schema(
     },
 
     fbLink: {
-        unique:[true,`link already exists`],
+      unique: [true, `link already exists`],
       type: String,
       required: true,
       minlength: [2, `please enter a valid name`],
-      validate: 
-        function (v) {
-          check(v).isURL;
-        },
-        message: `please submit a valid link`,
-      
+      validate: function (v) {
+        check(v).isURL;
+      },
+      message: `please submit a valid link`,
 
       //match: [/^[a-z ,.'-]+$/ , " Name contains Invalid characters"],
     },
@@ -68,19 +65,17 @@ const entrantSchema = new mongoose.Schema(
 
 const entrantModel = mongoose.model("entrant", entrantSchema);
 
-
 let saveEntrantToDataBase = async (req, res, next) => {
-  console.log("save to database is working");
-  const fullName= req.body.fullName
-  const bizLocation= req.body.bizLocation
-  const bizDescription= req.body.bizDescription
-  const fbLink= req.body.fbLink
-  const phoneNumber= req.body.phoneNumber
-  const email= req.body.email
+  console.log("attempting to save to database");
+  const fullName = req.body.fullName;
+  const bizLocation = req.body.bizLocation;
+  const bizDescription = req.body.bizDescription;
+  const fbLink = req.body.fbLink;
+  const phoneNumber = req.body.phoneNumber;
+  const email = req.body.email;
 
   /* takes the valid */
   const entrant = new entrantModel({
-
     fullName: fullName,
     bizLocation: bizLocation,
     bizDescription: bizDescription,
@@ -88,45 +83,48 @@ let saveEntrantToDataBase = async (req, res, next) => {
     phoneNumber: phoneNumber,
     email: email,
   });
-/* query Entrant queries the database to see if this is not a duplicate of existing entry */
-  const queryEntrant = async function () {
-      /* prevents duplicate from being recorded on db */
+  /* query Entrant queries the database to see if this is not a duplicate of existing entry */
+  const queryEntrant = async function (response) {
+    /* prevents duplicate from being recorded on db */
     console.log(`query Entrant is working`);
-    const result = await entrantModel
-      .find({
-        fullName: fullName, // check if name already exists
-        fbLink: fbLink, // check if facebook link is already ther
-        email: email, // check if email is already registered
-      })
-      .exec();
-    console.log(result);
+    
+      const result = await entrantModel.exists({ fullname: fullName });
 
-    if (result.length < 1) {
+      if (result) {
+        console.log(result);
+        response.status(422).send("result")
+
+
+       // throw `${fullName} is already registered. Please use another email`;
+
         /* if there is no existing entry the entry can be saved */
-      saveEntrant();
-    } else {
-      res
-        .status(409)
-        .send({ response: `${fullName} is already registered. Please use another email` });
+      } else {
+        saveEntrant();
+      }
+     
+    } /* catch (err) {
+      console.log(err);
+      res.status(409).send({
+        response: err,
+      });
+    } */
+
+    function saveEntrant() {
+      console.log(`save entrant working `);
+      entrant.save((err, entrant) => {
+        if (err) {
+          const errors = err.errors;
+          res.status(422).send(errors);
+          return;
+        } else next();
+      });
     }
-  };
-  
-  function saveEntrant() {
-    console.log(`save player working `);
-    entrant.save((err, entrant) => {
-      if (err) {
-        const errors = err.errors;
-        res.status(`422`).send(errors);
-        return;
-      } else next();
-    });
-  }
 
-  queryEntrant();
-};
-
-
-
-
-; //module.exports(entrant)=entrant
+    try {
+      queryEntrant(res);
+    } catch (err) {
+      res.status(500).send(err);
+    }
+  }; //module.exports(entrant)=entrant
+;
 module.exports = saveEntrantToDataBase;
