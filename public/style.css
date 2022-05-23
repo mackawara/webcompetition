@@ -118,6 +118,14 @@ textarea {
   align-items: center;
   margin: 10% 0;
 }
+.form-wrapper img {
+  width: 80%;
+  height: auto;
+}
+.results {
+  color: var(--cultured);
+  font-size: 2rem;
+}
 .btn-group {
   margin-top: 2rem;
   display: flex;
