@@ -183,27 +183,27 @@ window.addEventListener("DOMContentLoaded", async () => {
     };
     const response = await fetch("/register", options);
     const data = await response.json();
-    const result = document.getElementById("results");
-    result.style.display = "block";
+    /* const result = document.getElementById("results");
+    result.style.display = "block"; */
 
     const celebration = document.querySelector("#celebration");
     const confirmation = document.getElementById("confirmation");
     if (response.status == "200") {
-     /*  if was successsful */
+      /*  if was successsful */
       form.remove();
       document.getElementById(
         "confirmation"
       ).innerText = ` Thank you ${data.fullName} for participating, you will hear from our team soon!`;
       console.log("SUCCESS");
       celebration.src = "./images/celebrationSuccess.jpeg";
-      celebration.style.display="block"
+      celebration.style.display = "block";
     } else if (response.status == "400" || "500") {
-    /* Status 409 . WHen there is an existing entry in the DB with same email */
-     /* Status . When the server cant provide a response */
+      /* Status 409 . WHen there is an existing entry in the DB with same email */
+      /* Status . When the server cant provide a response */
       confirmation.innerText = data.response;
       confirmation.parentElement.classList.add("error");
     } else if (response.status == "422") {
-    /* status 422 sent if data submitted fails the DB schema validation */
+      /* status 422 sent if data submitted fails the DB schema validation */
       for (const any in data) {
         console.log(`${any}`);
         const errorField = document.getElementById(`${any}`).parentElement;
@@ -211,6 +211,5 @@ window.addEventListener("DOMContentLoaded", async () => {
         errorField.querySelector("small").innerText = `${data[any].message}`;
       }
     }
-   
   }
 });
