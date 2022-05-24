@@ -69,6 +69,9 @@ textarea {
   background-attachment: fixed;
 }
 
+#celebration {
+  display: none;
+}
 .image-wrapper {
   width: 50%;
   height: 100vh;

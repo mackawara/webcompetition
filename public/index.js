@@ -196,6 +196,7 @@ window.addEventListener("DOMContentLoaded", async () => {
       ).innerText = ` Thank you ${data.fullName} for participating, you will hear from our team soon!`;
       console.log("SUCCESS");
       celebration.src = "./images/celebrationSuccess.jpeg";
+      celebration.style.display="block"
     } else if (response.status == "400" || "500") {
     /* Status 409 . WHen there is an existing entry in the DB with same email */
      /* Status . When the server cant provide a response */
