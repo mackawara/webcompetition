@@ -37,7 +37,7 @@ textarea {
 ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--sonic-silver);
-  padding: 0 0 0 1rem;
+  padding: 0 0 0 2rem;
   font-family: "Poppins", sans-serif;
   opacity: 1; /* Firefox */
 }
