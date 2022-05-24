@@ -197,13 +197,13 @@ window.addEventListener("DOMContentLoaded", async () => {
       console.log("SUCCESS");
       celebration.src = "./images/celebrationSuccess.jpeg";
       celebration.style.display = "block";
-    } else if (response.status == "409" || response.status == "500") {
+    } else if (response.status == "500") {
       /* Status 409 . WHen there is an existing entry in the DB with same email */
       /* Status . When the server cant provide a response */
 
       confirmation.classList.add("error");
       confirmation.innerText = `${data}`;
-    } else if (response.status == "422") {
+    } else if (response.status == "422" || response == "409") {
       /* status 422 sent if data submitted fails the DB schema validation */
       for (const any in data) {
         console.log(`${any}`);
