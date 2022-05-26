@@ -89,15 +89,8 @@ let saveEntrantToDataBase = async (req, res, next) => {
     console.log(`query Entrant is working`);
 
     const result = await entrantModel
-      .exists({ fullname: fullName })
-      .maxTimeMS(15000)
-      .catch((err) => {
-        console.log(err);
-        res
-          .status(500)
-          .send({ message: `server error ocured, please resubmit` });
-        return;
-      });
+      .exists({ fullname: fullName ,email:email})
+      
     if (result) {
       console.log(result._id);
       res.status(400).send({ message: `user  is already entered thank you` });
