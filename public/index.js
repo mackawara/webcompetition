@@ -197,13 +197,25 @@ window.addEventListener("DOMContentLoaded", async () => {
       console.log("SUCCESS");
       celebration.src = "./images/celebrationSuccess.jpeg";
       celebration.style.display = "block";
-    } else if (response.status == "500") {
-      /* Status 409 . WHen there is an existing entry in the DB with same email */
       /* Status . When the server cant provide a response */
-
+    } else if (response.status == "500") {
       confirmation.classList.add("error");
       confirmation.innerText = `${data}`;
-    } else if (response.status == "422" || response == "409") {
+      /* Status 409 . WHen there is an existing entry in the DB with same email */
+    } else if (response.status == "409") {
+      for (const any in data) {
+        console.log(`${any}`);
+
+        const formResult = document.getElementById("formResult");
+        formResult.innerText = data.message;
+        form.remove();
+        celebration.src = "./images/celebrationSuccess.jpeg";
+        celebration.style.display = "block";
+        const fbShare = document.getElementById("fbShareLink");
+        fbShare.style.display = "block";
+      }
+    } else if (response.status == "422") {
+      /* status 422 sent if data submitted fails the DB schema validation */
       /* status 422 sent if data submitted fails the DB schema validation */
       for (const any in data) {
         console.log(`${any}`);
