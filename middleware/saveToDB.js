@@ -96,7 +96,7 @@ let saveEntrantToDataBase = async (req, res, next) => {
           console.log(data._id);
           res
             .status(409)
-            .send({ message: `user ${fullName} is already entered thank you participation` });
+            .send({ message: `${fullName} is already entered thank you participation` });
         } else if (!data) {
           /* if there is no existing entry the entry can be saved */
           saveEntrant();
