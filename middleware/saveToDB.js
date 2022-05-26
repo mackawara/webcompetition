@@ -88,28 +88,28 @@ let saveEntrantToDataBase = async (req, res, next) => {
     /* prevents duplicate from being recorded on db */
     console.log(`query Entrant is working`);
 
-    const result = await entrantModel
-      .exists({ fullname: fullName })
-      .maxTimeMS(15000)
+    const data = await entrantModel
+      .exists({ fullname: fullName, email: email })// check i there is any dat with the emeil
+      .then((data) => {
+        if (data) {
+          console.log("entry is alredy found");
+          console.log(data._id);
+          res
+            .status(409)
+            .send({ message: `user ${fullName} is already entered thank you participation` });
+        } else if (!data) {
+          /* if there is no existing entry the entry can be saved */
+          saveEntrant();
+        }
+      })
       .catch((err) => {
         console.log(err);
-        res
-          .status(500)
-          .send({ message: `server error ocured, please resubmit` });
-        return;
       });
-    if (result) {
-      console.log(result._id);
-      res.status(400).send({ message: `user  is already entered thank you` });
-    } else if (result) {
-      /* if there is no existing entry the entry can be saved */
-      saveEntrant();
-    }
   };
 
-  function saveEntrant() {
-    console.log(`save entrant working `);
-    entrant.save((err, entrant) => {
+  async function saveEntrant() {
+    console.log(` now saving to DB `);
+    await entrant.save((err, entrant) => {
       if (err) {
         const errors = err.errors;
         res.status(422).send(errors);

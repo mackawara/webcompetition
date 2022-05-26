@@ -27,41 +27,43 @@ let connection = mongoose.connect(uri || process.env.DB_URI, options);
 
 const database = mongoose.connection;
 database.on("error", console.error.bind(console, "connection error:"));
-database.once("open", function () {
+database.once("open", function () { //wait for db to connect before running server
   console.log(`DAtabase connection established  and checking`);
+
+  app.listen(PORT, () => {
+    console.log(`Server started, listening on  port: ${PORT} `);
+  });
+  
+  app.use(express.static("public"));
+  
+  app.use(express.static(__dirname + "/public"));
+  
+  app.use(express.json());
+  app.use(upload.array());
+  /* MiddleWare */
+  const {
+    userValidationRules,
+    validateEntrant,
+  } = require("./middleware/validation.js");
+  const saveEntrantToDataBase = require("./middleware/saveToDB.js");
+  //ROUTES
+  app.post(
+    "/register",
+    userValidationRules(),
+    validateEntrant,
+    saveEntrantToDataBase,
+    (req, res) => {
+      console.log(req.body);
+      res.send(req.body);
+    }
+  );
+  //HOME PAGE
+  
+  // BOOKING PAGE
+  //const { body, validationResult } = require("express-validator");
+  
+  app.get("/", (req, res) => {
+    res.sendFile(__dirname + "index.html");
+  });
 });
-app.listen(PORT, () => {
-  console.log(`Server started, listening on  port: ${PORT} `);
-});
 
-app.use(express.static("public"));
-
-app.use(express.static(__dirname + "/public"));
-
-app.use(express.json());
-app.use(upload.array());
-/* MiddleWare */
-const {
-  userValidationRules,
-  validateEntrant,
-} = require("./middleware/validation.js");
-const saveEntrantToDataBase = require("./middleware/saveToDB.js");
-//ROUTES
-app.post(
-  "/register",
-  userValidationRules(),
-  validateEntrant,
-  saveEntrantToDataBase,
-  (req, res) => {
-    console.log(req.body);
-    res.send(req.body);
-  }
-);
-//HOME PAGE
-
-// BOOKING PAGE
-//const { body, validationResult } = require("express-validator");
-
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "index.html");
-});
