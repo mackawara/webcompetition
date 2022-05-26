@@ -163,6 +163,7 @@ textarea {
   color: #df4759;
 }
 
+
 .error textarea {
   color: #df4759;
   border: 2px solid #df4759;
@@ -178,6 +179,9 @@ textarea {
 }
 .success small {
   color: #5cb85c;
+}
+#fbShareLink{
+  display: none;
 }
 /* media queries */
 @media only screen and (min-width: 1201px) {
